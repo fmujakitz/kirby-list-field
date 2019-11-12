@@ -54,7 +54,7 @@ export default {
   props: {
     label: String,
     placeholder: String,
-    value: Array
+    value: Array,
   },
   data() {
     return ({
@@ -63,7 +63,11 @@ export default {
   },
   methods: {
     addItem() {
-      this.value.push(this.text)
+      const values = this.text
+        .split("\n")
+        .map(v => v.trim())
+        .filter(Boolean)
+      values.forEach(v => this.value.push(v))
       this.text = ''
       this.$emit('input', this.value)
       this.$refs.textarea.focus()
